@@ -15,8 +15,12 @@ public class claseJuego extends Canvas {
 	
 	private static final int ALTO = 600;
 	
+	private static final String NOMBRE = "Juego";
+	
 	private claseJuego() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
+		
+		ventana = new JFrame(NOMBRE);
 		
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setResizable(false);
@@ -27,7 +31,9 @@ public class claseJuego extends Canvas {
 		ventana.setVisible(true);
 	}
 	
-	public static void main(String[] args) {}
+	public static void main(String[] args) {
+		claseJuego juego = new claseJuego();
+	}
 
 }
 
