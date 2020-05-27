@@ -19,6 +19,8 @@ public class claseJuego extends Canvas implements Runnable{
 	
 	private static Thread thread2;
 	
+	private static volatile boolean Funcionamiento = false;
+	
 	private claseJuego() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		
@@ -33,12 +35,22 @@ public class claseJuego extends Canvas implements Runnable{
 		ventana.setVisible(true);
 	}
 	
-	private void iniciar() {
+	private synchronized void iniciar() {
+		Funcionamiento = true;
+		
 		thread2 = new Thread(this, "Graficos");
 		thread2.start();
 	}
 	
-	private void detener() {}
+	private synchronized void detener() {
+		Funcionamiento = false;
+		
+		try {
+			thread2.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		claseJuego juego = new claseJuego();
@@ -47,7 +59,9 @@ public class claseJuego extends Canvas implements Runnable{
 	}
 
 	public void run() {
-		System.out.print("hola");
+		while(Funcionamiento) {
+			
+		}
 	}
 
 }
