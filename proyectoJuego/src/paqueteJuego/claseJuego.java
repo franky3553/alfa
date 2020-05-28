@@ -21,6 +21,8 @@ public class claseJuego extends Canvas implements Runnable{
 	
 	private static volatile boolean Funcionamiento = false;
 	
+	private static int iniciosEstado = 0;
+	
 	private claseJuego() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		
@@ -52,16 +54,50 @@ public class claseJuego extends Canvas implements Runnable{
 		}
 	}
 	
+	private void estado() {
+		iniciosEstado++;
+	}
+	
+	private void dibujado() {
+		
+	}
+	
 	public static void main(String[] args) {
 		claseJuego juego = new claseJuego();
 		juego.iniciar();
-		juego.detener();
 	}
 
 	public void run() {
-		while(Funcionamiento) {
+		long tiempo1 = System.nanoTime();
+		
+		final int nanosegundos = 1000000000;
+		final byte actualizacionesSegundo = 60;
+		final double NA = nanosegundos / actualizacionesSegundo;
+
+		long nanoTiempo1 = System.nanoTime();
+		double diferenciaNanoTiempo;
+		double delta = 0;
+		
+		while(Funcionamiento) {	
+			final long nanoTiempo2 = System.nanoTime();
+			diferenciaNanoTiempo = nanoTiempo2 - nanoTiempo1;
+			nanoTiempo1 = nanoTiempo2;
 			
+			delta+= diferenciaNanoTiempo;
+			
+			if(delta >= NA) {
+				estado();
+				delta = 0;
+			}
+			
+			if (System.nanoTime() - tiempo1 > nanosegundos) {
+				tiempo1 = System.nanoTime();
+				
+				ventana.setTitle("resultado: " + iniciosEstado);
+				iniciosEstado = 0;
+			}
 		}
+		
 	}
 
 }
