@@ -6,6 +6,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import paqueteControl.claseTeclado;
+
 public class claseJuego extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
@@ -23,6 +25,8 @@ public class claseJuego extends Canvas implements Runnable{
 	
 	private static int iniciosEstado = 0;
 	
+	private static claseTeclado claseTeclado1;
+	
 	private claseJuego() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		
@@ -35,6 +39,9 @@ public class claseJuego extends Canvas implements Runnable{
 		ventana.pack();
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
+		
+		claseTeclado1 = new claseTeclado();
+		addKeyListener(claseTeclado1);
 	}
 	
 	private synchronized void iniciar() {
@@ -56,6 +63,8 @@ public class claseJuego extends Canvas implements Runnable{
 	
 	private void estado() {
 		iniciosEstado++;
+		
+		claseTeclado1.estado();
 	}
 	
 	private void dibujado() {
