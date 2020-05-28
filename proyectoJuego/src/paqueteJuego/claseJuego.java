@@ -64,7 +64,23 @@ public class claseJuego extends Canvas implements Runnable{
 	private void estado() {
 		iniciosEstado++;
 		
-		claseTeclado1.estado();
+		claseTeclado1.actualizar();
+		
+		if (claseTeclado1.arb) {
+		System.out.println("puslada tecla w");
+		}
+
+		if (claseTeclado1.abj) {
+		System.out.println("puslada tecla s");
+		}
+		
+		if (claseTeclado1.izq) {
+		System.out.println("puslada tecla a");
+		}
+		
+		if (claseTeclado1.dch) {
+		System.out.println("puslada tecla d");
+		}
 	}
 	
 	private void dibujado() {
@@ -86,6 +102,8 @@ public class claseJuego extends Canvas implements Runnable{
 		long nanoTiempo1 = System.nanoTime();
 		double diferenciaNanoTiempo;
 		double delta = 0;
+		
+		requestFocus();
 		
 		while(Funcionamiento) {	
 			final long nanoTiempo2 = System.nanoTime();
