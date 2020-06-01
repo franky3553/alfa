@@ -29,7 +29,10 @@ public class claseHojaSprites {
 			e.printStackTrace();
 		}
 		
-		
+	}
+	
+	public int getAncho() {
+		return ancho;
 	}
 
 }
