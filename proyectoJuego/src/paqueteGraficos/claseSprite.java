@@ -10,6 +10,8 @@ public class claseSprite {
 	
 	public final int[] pixeles;
 	
+	public static claseSprite personaje = new claseSprite(3, 0, 0, claseHojaSprites.hojaSprite1);
+	
 	public claseSprite(final int lado, final int spriteX, final int spriteY, final claseHojaSprites claseHojaSprites1 ) {
 		this.lado = lado;
 		this.claseHojaSprites1 = claseHojaSprites1;

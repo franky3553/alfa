@@ -3,10 +3,15 @@ package paqueteJuego;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
 import paqueteControl.claseTeclado;
+import paqueteGraficos.clasePantalla;
 
 public class claseJuego extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -14,7 +19,6 @@ public class claseJuego extends Canvas implements Runnable{
 	private static JFrame ventana;
 	
 	private static final int ANCHO = 600;
-	
 	private static final int ALTO = 600;
 	
 	private static final String NOMBRE = "Juego";
@@ -26,6 +30,15 @@ public class claseJuego extends Canvas implements Runnable{
 	private static int iniciosEstado = 0;
 	
 	private static claseTeclado claseTeclado1;
+	
+	private static int x = 0;
+	private static int y = 0;
+	
+	private static clasePantalla pantalla1;
+	
+	private static BufferedImage imagen = new BufferedImage(ANCHO, ALTO, BufferedImage.TYPE_INT_RGB);
+	
+	private static int[] pixeles = ((DataBufferInt) imagen.getRaster().getDataBuffer()).getData();
 	
 	private claseJuego() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
@@ -42,6 +55,8 @@ public class claseJuego extends Canvas implements Runnable{
 		
 		claseTeclado1 = new claseTeclado();
 		addKeyListener(claseTeclado1);
+		
+		pantalla1 = new clasePantalla(ANCHO, ALTO); 
 	}
 	
 	private synchronized void iniciar() {
@@ -84,7 +99,23 @@ public class claseJuego extends Canvas implements Runnable{
 	}
 	
 	private void dibujado() {
+		BufferStrategy estrategia = getBufferStrategy();
 		
+		if (estrategia == null){
+			createBufferStrategy(3);
+			return;
+		}
+		
+		pantalla1.limpiar();
+		pantalla1.mostrar(x, y);
+		
+		System.arraycopy(pantalla1.pixeles, 0, pixeles, 0, pixeles.length);
+		
+		
+		Graphics g = estrategia.getDrawGraphics();
+		g.drawImage(imagen, 0, 0, getWidth(), getHeight(), null);
+		g.dispose();
+		estrategia.show();
 	}
 	
 	public static void main(String[] args) {

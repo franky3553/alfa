@@ -11,6 +11,8 @@ public class claseHojaSprites {
 	
 	public final int[] pixeles;
 	
+	public static claseHojaSprites hojaSprite1 = new claseHojaSprites(30, 30, "/texturas/hoja-sprite1.png");
+	
 	public claseHojaSprites(final int ancho, final int alto, final String ruta) {
 		this.ancho = ancho;
 		this.alto = alto;
